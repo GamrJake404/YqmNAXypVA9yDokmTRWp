@@ -4,6 +4,7 @@ import os
 from tkinter import messagebox
 import keyboard
 import time
+import requests
 try:
     from website import app
     website = True
@@ -12,6 +13,19 @@ except:
 
 port = 35491
 IP = "anonymous"
+current_version = "1.0.8"
+
+print("[*] Searching for updates")
+new_version = requests.get('https://raw.githubusercontent.com/GamrJake404/YqmNAXypVA9yDokmTRWp/main/version.txt')
+if current_version in new_version.content.decode():
+    print("[+] Current version is up to date\n")
+else:
+    print("[-] Current version is outdated\n")
+    print("[*] Updating")
+    new_program = requests.get('https://raw.githubusercontent.com/GamrJake404/YqmNAXypVA9yDokmTRWp/main/Raspberry%20Pi%20Client%20-%20GUI.py')
+    with open('Raspberry Pi Client - GUI.py', 'wb') as f:
+        f.write(new_program.content)
+    print("[+] Update complete")
 
 class Main:
     def forward(s):
